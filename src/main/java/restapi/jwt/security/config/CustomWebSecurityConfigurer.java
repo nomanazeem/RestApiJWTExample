@@ -1,8 +1,8 @@
 package restapi.jwt.security.config;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import restapi.jwt.security.jwt.AuthEntryPointJwt;
 import restapi.jwt.security.jwt.AuthTokenFilter;
-import restapi.jwt.security.services.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 /**
  * Created by noman.
  */
@@ -25,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CustomWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
-    JwtUserDetailsService userDetailsService;
+    UserDetailsService userDetailsService;
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;

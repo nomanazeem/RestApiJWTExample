@@ -1,10 +1,14 @@
 package restapi.jwt.restcontroller;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import restapi.jwt.model.Role;
+import restapi.jwt.model.User;
 import restapi.jwt.payload.request.LoginRequest;
 import restapi.jwt.payload.request.SignupRequest;
 import restapi.jwt.payload.response.JwtResponse;
 import restapi.jwt.payload.response.MessageResponse;
+import restapi.jwt.repository.IRoleRepository;
+import restapi.jwt.repository.IUserRepository;
 import restapi.jwt.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -28,6 +34,14 @@ public class AuthController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    IUserRepository userRepository;
+
+
+    @Autowired
+    IRoleRepository roleRepository;
+
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -74,7 +88,7 @@ public class AuthController {
                 "",
                 roles));
     }
-/*
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -102,5 +116,5 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse(true,"User registered successfully!", null));
-    }*/
+    }
 }
